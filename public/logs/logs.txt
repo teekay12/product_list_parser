@@ -1,0 +1,3 @@
+Product List Logs
+Product at line 2 in file C:\Users\Kareem\Desktop\project files\product list parser\public\files\products.csv contains an escape character : "HP","OMEN 15-AX004NA: INTEL CORE I3-6100H, 15.6\", 8GB DDR4, 128GB SSD, 1TB HDD, GTX 950M 2 GB GDDR5","Working","Grade A - Very Good Condition","8GB","Black","Not Applicable"
+Product at line 3 in file C:\Users\Kareem\Desktop\project files\product list parser\public\files\products.csv contains an escape character : "Apple","MacBook Air 11\" Laptop Core i5 1.4GHz, 4GB RAM, 128GB HDD, Mac OS X 10.4 Tiger","Working","Grade C - Acceptable Condition","Not Applicable","Silver","Not Applicable"

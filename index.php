@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
-$root = dirname(__DIR__) . DIRECTORY_SEPARATOR;
+$root = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'product list parser' . DIRECTORY_SEPARATOR;
 
+define('PUBLIC_PATH', $root . 'public' . DIRECTORY_SEPARATOR);
 define('APP_PATH', $root . 'src' . DIRECTORY_SEPARATOR);
-define('FILES_PATH', $root . 'files' . DIRECTORY_SEPARATOR);
+define('FILES_PATH', $root . 'public' .DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR);
 define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
 
 require APP_PATH . "Traits" . DIRECTORY_SEPARATOR . 'helpers.php';
-
 require APP_PATH . "App.php";
 require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "ProductParserInterface.php";
 require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "FileOpenerInterface.php";

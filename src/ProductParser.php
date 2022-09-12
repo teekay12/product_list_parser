@@ -67,7 +67,9 @@ abstract class ProductParser implements ProductParserInterface {
         array_push($header, "count");
         $headerToString = implode(",", $header);
 
-        $uniqueCombinationFile = $this->file_opener->openForWriting($unique_combination_file_name);
+        $file_name = PUBLIC_PATH . $unique_combination_file_name;
+
+        $uniqueCombinationFile = $this->file_opener->openForWriting($file_name);
         fwrite($uniqueCombinationFile, $headerToString."\n");
 
         foreach($unique_products as $key=>$value){
@@ -78,7 +80,8 @@ abstract class ProductParser implements ProductParserInterface {
     }
 
     public function exporLogs(array $logs){
-        $log_file = $this->file_opener->openForWriting("logs.txt");
+        $file_name = PUBLIC_PATH . "logs" . DIRECTORY_SEPARATOR . "logs.txt";
+        $log_file = $this->file_opener->openForWriting($file_name);
         fwrite($log_file, "Product List Logs"."\n");
 
         foreach($logs as $value){
