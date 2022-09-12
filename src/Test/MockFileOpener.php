@@ -2,8 +2,7 @@
 
 namespace Kareem\ProductListParser\Src\Test;
 
-require APP_PATH . "ProductParser.php";
-require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "FileOpenerInterface.php";
+use Kareem\ProductListParser\Src\Interface\FileOpenerInterface;
 
 class MockFileOpener implements FileOpenerInterface {
     public function openForReading($file_name){

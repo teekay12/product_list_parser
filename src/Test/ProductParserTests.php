@@ -1,34 +1,41 @@
 <?php
 declare(strict_types = 1);
-//use PHPUnit\Framework\TestCase;
 
-//require APP_PATH . "ProductParser.php";
-//require APP_PATH . "Test" . DIRECTORY_SEPARATOR . "MockFileOpener.php";
-//require APP_PATH . "Test" . DIRECTORY_SEPARATOR . "MockProductParser.php";
+namespace Kareem\ProductListParser\Src\Test;
 
+$root = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
-require "../src/ProductParser.php";
-require "MockFileOpener.php";
-require "MockProductParser.php";
+define('APP_PATH', $root);
 
-class ProductParserTests extends \PHPUnit\Framework\TestCase {
+require APP_PATH . "Test" . DIRECTORY_SEPARATOR . "MockProductParser.php";
+require APP_PATH . "Test" . DIRECTORY_SEPARATOR . "MockFileOpener.php";
 
-    public function mapProductObjectIsCreatedCorrectlyTest(){
-        $parser = new MockProductParser(new MockFileOpener());
+use PHPUnit\Framework\TestCase;
+use Kareem\ProductListParser\Src\Test\MockProductParser;
+use Kareem\ProductListParser\Src\Test\MockFileOpener;
 
+class ProductParserTests extends TestCase {
+    
+    public function test_it_creates_product_parser_object() : void{
         $header = ["make", "model", "color", "capacity", "network", "grade", "condition"];
         $product_line = ["Acer", "Acer Aspire V5-571", "Working", "Grade A - Very Good Condition", "4GB", "Aluminium Silver", "Not Applicable"];
+
+        $parser = new MockProductParser(new MockFileOpener());
 
         $product = $parser->mapProductObject($header, $product_line);
 
         $this->assertTrue(property_exists($product,  'make'));
     }
 
-    public function parseFileTest(){
-        
-    }
+    public function test_it_maps_product_parser_object() : void{
+        $header = ["make", "model", "color", "capacity", "network", "grade", "condition"];
+        $product_line = ["Acer", "Acer Aspire V5-571", "Working", "Grade A - Very Good Condition", "4GB", "Aluminium Silver", "Not Applicable"];
 
-    public function exportUniqueCombination(){
-        
+        $parser = new MockProductParser(new MockFileOpener());
+
+        $product = $parser->mapProductObject($header, $product_line);
+
+        $this->assertEquals("Acer", $product->make);
+        $this->assertEquals("Not Applicable", $product->condition);
     }
 }   
