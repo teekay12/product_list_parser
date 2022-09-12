@@ -1,9 +1,17 @@
 <?php
 
-require APP_PATH . "Models" . DIRECTORY_SEPARATOR . "Product.php";
-require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "ProductParserInterface.php";
+namespace Kareem\ProductListParser\Src;
 
-abstract class Parser implements ProductParserInterface{
+use Kareem\ProductListParser\Src\Interface\ProductParserInterface;
+use Kareem\ProductListParser\Src\Interface\FileOpenerInterface;
+use Kareem\ProductListParser\Src\Models\Product;
+
+abstract class ProductParser implements ProductParserInterface {
+
+    public function __construct(FileOpenerInterface $file_opener){
+        $this->file_opener = $file_opener;
+    }
+
     public function mapProductObject(array $header, array $product_line) : Product{
         $product = new Product();
         for($i = 0; $i < count($header); $i++){
@@ -15,7 +23,7 @@ abstract class Parser implements ProductParserInterface{
     public function parseFile(string $file_name, string $unique_combination_file_name = null) : void {
         echo "Product list parsing initiated ...";
 
-        $opened_file = fopen($file_name, 'r');
+        $opened_file = $this->file_opener->openForReading($file_name);
         $header = $this->getLine($opened_file);
         $unique_products = array();
         $counter = 0;
@@ -59,7 +67,7 @@ abstract class Parser implements ProductParserInterface{
         array_push($header, "count");
         $headerToString = implode(",", $header);
 
-        $uniqueCombinationFile = fopen($unique_combination_file_name, "w");
+        $uniqueCombinationFile = $this->file_opener->openForWriting($unique_combination_file_name);
         fwrite($uniqueCombinationFile, $headerToString."\n");
 
         foreach($unique_products as $key=>$value){
@@ -70,7 +78,7 @@ abstract class Parser implements ProductParserInterface{
     }
 
     public function exporLogs(array $logs){
-        $log_file = fopen("logs.txt", "w");
+        $log_file = $this->file_opener->openForWriting("logs.txt");
         fwrite($log_file, "Product List Logs"."\n");
 
         foreach($logs as $value){

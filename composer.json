@@ -1,0 +1,18 @@
+{
+    "name": "kareem/product-list-parser",
+    "description": "To parse and validate a  list of product and also group unique files",
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kareem\\ProductListParser\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Taofik kareem",
+            "email": "30495535+teekay12@users.noreply.github.com"
+        }
+    ]
+}
