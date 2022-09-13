@@ -1,8 +1,8 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Factory;
+namespace Kareem\ProductListParser\Src\Factories;
 
-use Kareem\ProductListParser\Src\Interface\ProductParserInterface;
+use Kareem\ProductListParser\Src\Interfaces\ProductParserInterface;
 use Kareem\ProductListParser\Src\FileOpener;
 use Kareem\ProductListParser\Src\Parsers\CsvProductParser;
 use Kareem\ProductListParser\Src\Parsers\TsvProductParser;

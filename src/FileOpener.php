@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Kareem\ProductListParser\Src;
 
-use Kareem\ProductListParser\Src\Interface\FileOpenerInterface;
+use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
 
 class FileOpener implements FileOpenerInterface{
 

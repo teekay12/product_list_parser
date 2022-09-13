@@ -1,12 +1,14 @@
 <?php
 
-namespace Kareem\ProductListParser\Src;
+namespace Kareem\ProductListParser\Src\Parsers;
 
-use Kareem\ProductListParser\Src\Interface\ProductParserInterface;
-use Kareem\ProductListParser\Src\Interface\FileOpenerInterface;
+use Kareem\ProductListParser\Src\Interfaces\ProductParserInterface;
+use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
 use Kareem\ProductListParser\Src\Models\Product;
 
 abstract class ProductParser implements ProductParserInterface {
+
+    public $unique_products = array();
 
     public function __construct(FileOpenerInterface $file_opener){
         $this->file_opener = $file_opener;
@@ -25,7 +27,6 @@ abstract class ProductParser implements ProductParserInterface {
 
         $opened_file = $this->file_opener->openForReading($file_name);
         $header = $this->getLine($opened_file);
-        $unique_products = array();
         $counter = 0;
         $error_counter = 0;
         $logs = array();
@@ -43,15 +44,15 @@ abstract class ProductParser implements ProductParserInterface {
             $product = $this->mapProductObject($header, $product_line);
             print_r($product);
         
-            if(array_key_exists($product_line_str, $unique_products)){
-                $unique_products[$product_line_str] = $unique_products[$product_line_str] + 1;
+            if(array_key_exists($product_line_str, $this->unique_products)){
+                $this->unique_products[$product_line_str] = $this->unique_products[$product_line_str] + 1;
             }else{
-                $unique_products[$product_line_str] = 1;
+                $this->unique_products[$product_line_str] = 1;
             }
         }
         fclose($opened_file);
         if($unique_combination_file_name != null){
-            $this->exportUniqueCombination($header, $unique_products, $unique_combination_file_name);
+            $this->exportUniqueCombination($header, $unique_combination_file_name);
         }
 
         if(count($logs) > 0){
@@ -63,7 +64,7 @@ abstract class ProductParser implements ProductParserInterface {
 
     abstract function getLine($opened_file);
  
-    public function exportUniqueCombination(array $header, array $unique_products, string $unique_combination_file_name = null){
+    public function exportUniqueCombination(array $header, string $unique_combination_file_name = null){
         array_push($header, "count");
         $headerToString = implode(",", $header);
 
@@ -72,7 +73,7 @@ abstract class ProductParser implements ProductParserInterface {
         $uniqueCombinationFile = $this->file_opener->openForWriting($file_name);
         fwrite($uniqueCombinationFile, $headerToString."\n");
 
-        foreach($unique_products as $key=>$value){
+        foreach($this->unique_products as $key=>$value){
             fwrite($uniqueCombinationFile, $key.",".$value."\n");
         }
         

@@ -2,8 +2,8 @@
 
 namespace Kareem\ProductListParser\Src\Parsers;
 
-use Kareem\ProductListParser\Src\Interface\FileOpenerInterface;
-use Kareem\ProductListParser\Src\ProductParser;
+use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
+use Kareem\ProductListParser\Src\Parsers\ProductParser;
 
 class TsvProductParser extends ProductParser { 
     public function __construct(FileOpenerInterface $file_opener){

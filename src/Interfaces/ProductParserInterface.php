@@ -1,9 +1,9 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Interface;
+namespace Kareem\ProductListParser\Src\Interfaces;
 
  Interface ProductParserInterface{
     public function mapProductObject(array $header, array $product_line);
     public function parseFile(string $file_name);
-    public function exportUniqueCombination(array $header, array $unique_products);
+    public function exportUniqueCombination(array $header);
  }

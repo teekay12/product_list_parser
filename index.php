@@ -10,12 +10,12 @@ define('FILES_PATH', $root . 'public' .DIRECTORY_SEPARATOR . 'files' . DIRECTORY
 define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
 
 require APP_PATH . "Traits" . DIRECTORY_SEPARATOR . 'helpers.php';
-require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "ProductParserInterface.php";
-require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "FileOpenerInterface.php";
-require APP_PATH . "Factory" . DIRECTORY_SEPARATOR . "ProductParserFactory.php";
+require APP_PATH . "Interfaces" . DIRECTORY_SEPARATOR . "ProductParserInterface.php";
+require APP_PATH . "Interfaces" . DIRECTORY_SEPARATOR . "FileOpenerInterface.php";
+require APP_PATH . "Factories" . DIRECTORY_SEPARATOR . "ProductParserFactory.php";
 require APP_PATH . "Models" . DIRECTORY_SEPARATOR . "Product.php";
 require APP_PATH . "FileOpener.php";
-require APP_PATH . "ProductParser.php";
+require APP_PATH . "Parsers" . DIRECTORY_SEPARATOR . "ProductParser.php";
 require APP_PATH . "Parsers" . DIRECTORY_SEPARATOR . "CsvProductParser.php";
 require APP_PATH . "Parsers" . DIRECTORY_SEPARATOR . "TsvProductParser.php";
 
@@ -44,7 +44,7 @@ if(isset($options) && count($options) > 0){
         throw new \Exception('file does not exist');
     }
 
-    $product_parser = Kareem\ProductListParser\Src\Factory\ProductParserFactory::getProductParser($file_name);
+    $product_parser = Kareem\ProductListParser\Src\Factories\ProductParserFactory::getProductParser($file_name);
     $product_parser->parseFile($file_name, $unique_combination_file_name);
 
 }else{

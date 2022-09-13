@@ -2,13 +2,13 @@
 
 namespace Kareem\ProductListParser\Src\Test;
 
-require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "ProductParserInterface.php";
-require APP_PATH . "Interface" . DIRECTORY_SEPARATOR . "FileOpenerInterface.php";
+require APP_PATH . "Interfaces" . DIRECTORY_SEPARATOR . "ProductParserInterface.php";
+require APP_PATH . "Interfaces" . DIRECTORY_SEPARATOR . "FileOpenerInterface.php";
 require APP_PATH . "Models" . DIRECTORY_SEPARATOR . "Product.php";
 require APP_PATH . "ProductParser.php";
 
-use Kareem\ProductListParser\Src\Interface\ProductParserInterface;
-use Kareem\ProductListParser\Src\Interface\FileOpenerInterface;
+use Kareem\ProductListParser\Src\Interfaces\ProductParserInterface;
+use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
 use Kareem\ProductListParser\Src\Models\Product;
 use Kareem\ProductListParser\Src\ProductParser;
 
