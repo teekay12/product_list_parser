@@ -23,17 +23,19 @@ use Kareem\ProductListParser\Src\Parsers\CsvProductParser;
 class CsvProductParserTests extends TestCase {
     
     public function test_it_creates_product_parser_object_and_maps_value() : void{
-        $product_list_header = ["make", "model", "color", "capacity", "network", "grade", "condition"];
-
-        $product_list_body = [
-            ["Acer", "Acer Aspire V5-571", "Aluminium Silver", "4GB", "Grade A - Very Good Condition", "Not Applicable", "Not Applicable"],
-            ["Acer", "Acer Aspire V5-571", "Aluminium Silver", "4GB", "Grade A - Very Good Condition", "Not Applicable", "Not Applicable"],
-            ["Acer", "Acer Aspire V5-571", "Aluminium Silver", "6GB", "Grade A - Very Good Condition", "Not Applicable", "Not Applicable"]
-        ];
+        
         $parser = new CsvProductParser(new FileOpener());
 
         $product = $parser->parseFile("./public/files/products.csv");
 
-        
+        $this->assertEquals(4, count($parser->unique_products));
+
+        $this->assertEquals(3, array_values($parser->unique_products)[0]);
+
+        $this->assertEquals(1, array_values($parser->unique_products)[1]);
+
+        $this->assertEquals(1, array_values($parser->unique_products)[2]);
+
+        $this->assertEquals(8, array_values($parser->unique_products)[3]);
     }
 }   
