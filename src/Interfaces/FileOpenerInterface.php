@@ -1,6 +1,6 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Interfaces;
+namespace Kareem\ProductListParser\Interfaces;
 
 Interface FileOpenerInterface {
     public function openForReading($file_name);

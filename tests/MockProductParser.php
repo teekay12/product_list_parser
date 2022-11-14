@@ -1,16 +1,18 @@
 <?php
 
-namespace Kareem\ProductListParser\Parsers;
+namespace Tests\Unit;
 
+use Kareem\ProductListParser\Interfaces\ProductParserInterface;
 use Kareem\ProductListParser\Interfaces\FileOpenerInterface;
+use Kareem\ProductListParser\Models\Product;
 use Kareem\ProductListParser\Parsers\ProductParser;
 
-class TsvProductParser extends ProductParser { 
+class MockProductParser extends ProductParser {
     public function __construct(FileOpenerInterface $file_opener){
         parent::__construct($file_opener);
     }
 
-    function getLine($opened_file) {
-        return fgetcsv($opened_file, null, "\t");
+    public function getLine($opened_file){
+        return [];
     }
 }

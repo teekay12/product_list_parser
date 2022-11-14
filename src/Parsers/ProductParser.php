@@ -1,10 +1,10 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Parsers;
+namespace Kareem\ProductListParser\Parsers;
 
-use Kareem\ProductListParser\Src\Interfaces\ProductParserInterface;
-use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
-use Kareem\ProductListParser\Src\Models\Product;
+use Kareem\ProductListParser\Interfaces\ProductParserInterface;
+use Kareem\ProductListParser\Interfaces\FileOpenerInterface;
+use Kareem\ProductListParser\Models\Product;
 
 abstract class ProductParser implements ProductParserInterface {
 

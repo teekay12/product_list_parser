@@ -1,28 +1,29 @@
 <?php
 declare(strict_types = 1);
 
-namespace Kareem\ProductListParser\Src\Test;
-
-$root = dirname(__DIR__) . DIRECTORY_SEPARATOR;
-
-define('APP_PATH', $root);
-
-require APP_PATH . "Tests" . DIRECTORY_SEPARATOR . "MockProductParser.php";
-require APP_PATH . "Tests" . DIRECTORY_SEPARATOR . "MockFileOpener.php";
+namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Kareem\ProductListParser\Src\Test\MockProductParser;
-use Kareem\ProductListParser\Src\Test\MockFileOpener;
+use Tests\Unit\MockProductParser;
+use Tests\Unit\MockFileOpener;
 
 class ProductParserTests extends TestCase {
     
-    public function test_it_creates_product_parser_object_and_maps_value() : void{
-        $header = ["make", "model", "color", "capacity", "network", "grade", "condition"];
-        $product_line = ["Acer", "Acer Aspire V5-571", "Aluminium Silver", "4GB", "Grade A - Very Good Condition", "Not Applicable", "Not Applicable"];
+    protected $header = [];
+    protected $productLine = [];
+    
+    protected function setUp() : void
+    {
+        parent::setUp();
 
+        $this->header = ["make", "model", "color", "capacity", "network", "grade", "condition"];
+        $this->productLine = ["Acer", "Acer Aspire V5-571", "Aluminium Silver", "4GB", "Grade A - Very Good Condition", "Not Applicable", "Not Applicable"];
+    }
+
+    public function test_it_creates_product_parser_object_and_maps_value() : void{
         $parser = new MockProductParser(new MockFileOpener());
 
-        $product = $parser->mapProductObject($header, $product_line);
+        $product = $parser->mapProductObject($this->header, $this->productLine);
 
         $this->assertTrue(property_exists($product,  'make'));
         $this->assertTrue(property_exists($product,  'model'));

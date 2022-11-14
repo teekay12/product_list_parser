@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Kareem\ProductListParser\Src;
+namespace Kareem\ProductListParser;
 
-use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
+use Kareem\ProductListParser\Interfaces\FileOpenerInterface;
 
 class FileOpener implements FileOpenerInterface{
 

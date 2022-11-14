@@ -1,6 +1,6 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Interfaces;
+namespace Kareem\ProductListParser\Interfaces;
 
  Interface ProductParserInterface{
     public function mapProductObject(array $header, array $product_line);

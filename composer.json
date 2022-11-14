@@ -9,6 +9,11 @@
             "Kareem\\ProductListParser\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Unit\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Taofik kareem",

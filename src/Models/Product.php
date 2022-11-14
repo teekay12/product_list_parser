@@ -1,6 +1,6 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Models;
+namespace Kareem\ProductListParser\Models;
 
 class Product
 {

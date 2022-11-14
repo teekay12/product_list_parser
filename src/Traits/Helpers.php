@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Kareem\ProductListParser\Src\Traits;
+namespace Kareem\ProductListParser\Traits;
 
 trait Helpers{
     public function filePathValidation($file_name) : string {

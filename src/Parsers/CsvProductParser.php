@@ -1,9 +1,9 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Parsers;
+namespace Kareem\ProductListParser\Parsers;
 
-use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
-use Kareem\ProductListParser\Src\Parsers\ProductParser;
+use Kareem\ProductListParser\Interfaces\FileOpenerInterface;
+use Kareem\ProductListParser\Parsers\ProductParser;
 
 class CsvProductParser extends ProductParser {
     public function __construct(FileOpenerInterface $file_opener){

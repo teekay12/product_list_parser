@@ -1,8 +1,8 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Test;
+namespace Tests\Unit;
 
-use Kareem\ProductListParser\Src\Interfaces\FileOpenerInterface;
+use Kareem\ProductListParser\Interfaces\FileOpenerInterface;
 
 class MockFileOpener implements FileOpenerInterface {
     public function openForReading($file_name){

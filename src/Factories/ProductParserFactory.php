@@ -1,12 +1,12 @@
 <?php
 
-namespace Kareem\ProductListParser\Src\Factories;
+namespace Kareem\ProductLister\Factories;
 
-use Kareem\ProductListParser\Src\Interfaces\ProductParserInterface;
-use Kareem\ProductListParser\Src\FileOpener;
-use Kareem\ProductListParser\Src\Parsers\CsvProductParser;
-use Kareem\ProductListParser\Src\Parsers\TsvProductParser;
-use Kareem\ProductListParser\Src\Traits\Helpers;
+use Kareem\ProductListParser\Interfaces\ProductParserInterface;
+use Kareem\ProductListParser\FileOpener;
+use Kareem\ProductListParser\Parsers\CsvProductParser;
+use Kareem\ProductListParser\Parsers\TsvProductParser;
+use Kareem\ProductListParser\Traits\Helpers;
 
 class ProductParserFactory {
 
