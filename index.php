@@ -1,68 +1,58 @@
 <?php
 
 declare(strict_types = 1);
+require __DIR__ . '/vendor/autoload.php';
 
-$root = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'productlistparser' . DIRECTORY_SEPARATOR;
+use Kareem\ProductListParser\Factories\ProductParserFactory;
 
-define('PUBLIC_PATH', $root . 'public' . DIRECTORY_SEPARATOR);
-define('APP_PATH', $root . 'src' . DIRECTORY_SEPARATOR);
-define('FILES_PATH', $root . 'public' .DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR);
-define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
+try {
+    $root = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'productlistparser' . DIRECTORY_SEPARATOR;
+    $filesPath = $root . 'public' . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
 
-require APP_PATH . "Traits" . DIRECTORY_SEPARATOR . 'helpers.php';
-require APP_PATH . "Interfaces" . DIRECTORY_SEPARATOR . "ProductParserInterface.php";
-require APP_PATH . "Interfaces" . DIRECTORY_SEPARATOR . "FileOpenerInterface.php";
-require APP_PATH . "Factories" . DIRECTORY_SEPARATOR . "ProductParserFactory.php";
-require APP_PATH . "Models" . DIRECTORY_SEPARATOR . "Product.php";
-require APP_PATH . "FileOpener.php";
-require APP_PATH . "Parsers" . DIRECTORY_SEPARATOR . "ProductParser.php";
-require APP_PATH . "Parsers" . DIRECTORY_SEPARATOR . "CsvProductParser.php";
-require APP_PATH . "Parsers" . DIRECTORY_SEPARATOR . "TsvProductParser.php";
+    define('PUBLIC_PATH', $root . 'public' . DIRECTORY_SEPARATOR);
+    define('APP_PATH', $root . 'src' . DIRECTORY_SEPARATOR);
+    define('FILES_PATH', $filesPath);
+    define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
 
-$short_options = "f:u::";
-$long_options = ["file:", "unique-combinations::"];
-    
-$options = getopt($short_options, $long_options);
+    $shortOptions = "f:u::";
+    $longOptions = ["file:", "unique-combinations::"];
 
-$file_name = null;
-$unique_combination_file_name = null;
+    $options = getopt($shortOptions, $longOptions);
 
-if(isset($options) && count($options) > 0){
-    $file = FILES_PATH.($options["f"] ?? $options["file"]);
+    if (!empty($options)) {
+        $file = $options["f"] ?? $options["file"];
+        $file = filePathValidation($file);
 
-    if(isset($options["unique-combinations"]) || isset($options["u"])){
-        $unique_combination_file_name = (string) $options["u"] ?? $options["unique-combinations"];
+        if (!fileNameValidation($file)) {
+            throw new \Exception('Invalid file format');
+        }
+
+        $uniqueCombinationFileName = $options["u"] ?? $options["unique-combinations"] ?? null;
+        $filePath = FILES_PATH . $file;
+
+        if (!file_exists($filePath)) {
+            throw new \Exception('File does not exist');
+        }
+
+        $productParser = ProductParserFactory::getProductParser($filePath);
+        $productParser->parseFile($filePath, $uniqueCombinationFileName);
+    } else {
+        echo "Invalid command";
     }
-    
-    $file_name = filePathValidation($file);
-
-    if(!fileNameValidation($file_name)){
-        throw new \Exception('Invalid file format');
-    }
-
-    if(!file_exists($file_name)){
-        throw new \Exception('file does not exist');
-    }
-
-    $product_parser = Kareem\ProductListParser\Src\Factories\ProductParserFactory::getProductParser($file_name);
-    $product_parser->parseFile($file_name, $unique_combination_file_name);
-
-}else{
-    echo "invalid Command";
+} catch (Exception $e) {
+    echo $e->getMessage();
 }
 
-function filePathValidation($file_name) : string {
-    if(strpos($file_name, "/") || strpos($file_name, "\\")){
-        $file_name = str_replace("/", "\\", $file_name);
-    }
-    return $file_name;
+function filePathValidation(string $fileName): string
+{
+    $fileName = str_replace(["/", "\\"], DIRECTORY_SEPARATOR, $fileName);
+    return $fileName;
 }
-function fileNameValidation($file_name): bool {
-    if(strpos($file_name, "/") || strpos($file_name, "\\")){
-        $last_slash_occurence = strrpos($file_name, "\\");
-        $file_name = substr($file_name, $last_slash_occurence + 1);
-    }
 
-    if(substr_count($file_name, ".") > 1) return false;
-    else return true;
+function fileNameValidation(string $fileName): bool
+{
+    $fileName = basename($fileName);
+    $extensionCount = substr_count($fileName, ".");
+
+    return $extensionCount === 1;
 }
