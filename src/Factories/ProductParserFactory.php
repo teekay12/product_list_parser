@@ -1,6 +1,6 @@
 <?php
 
-namespace Kareem\ProductLister\Factories;
+namespace Kareem\ProductListParser\Factories;
 
 use Kareem\ProductListParser\Interfaces\ProductParserInterface;
 use Kareem\ProductListParser\FileOpener;

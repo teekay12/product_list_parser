@@ -10,7 +10,7 @@ abstract class ProductParser implements ProductParserInterface {
 
     public $unique_products = array();
 
-    public function __construct(FileOpenerInterface $file_opener){
+    public function __construct(public FileOpenerInterface $file_opener){
         $this->file_opener = $file_opener;
     }
 
